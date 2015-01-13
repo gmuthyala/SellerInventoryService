@@ -91,7 +91,7 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:element>
-            <xs:element name="utcOffset" type="xs:string" minOccurs="0">
+            <xs:element name="timeZone" type="xs:string" minOccurs="0">
                 <xs:annotation>
                     <xs:documentation>
                         The UTC offset is the difference in hours and minutes from Coordinated Universal Time (UTC) to the local time. If the time at the location is five hours behind UTC, the UTCOffset value would be set to '-05:00'. Or, if the time at the location is three hours ahead of UTC, the UTCOffset value would be set to '+03:00'. The following time format should be used:
