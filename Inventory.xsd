@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="Inventory">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="SKU" minOccurs="1" type="xs:string"/>
+                <xs:element name="unitCost" minOccurs="0" type="AmountType"/>
+                <xs:element minOccurs="0" name="status" type="StatusType"/>
+                <xs:element name="conditionDetails" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="condition" minOccurs="0" type="ConditionType"/>
+                            <xs:element name="conditonDescription" minOccurs="0"
+                                maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="localizedFor"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="availability">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="location">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="locationId"/>
+                                        <xs:element minOccurs="0" name="locationInWarehouse"/>
+                                        <xs:element maxOccurs="unbounded" minOccurs="1"
+                                            name="fulfillmentOption">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="fulfillmentType"/>
+                                                  <xs:element minOccurs="0" name="quantity"/>
+                                                  <xs:element minOccurs="0" name="availability"/>
+                                                  <xs:element minOccurs="0" name="fulfillmentTime"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element minOccurs="0" name="packageWeightAndDimensions"/>
+                <xs:element name="productDetails" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="0" name="productIdentifier">
+                                <xs:complexType>
+                                    <xs:attribute name="productIdentifierType"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="pictures" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="pictureURL" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:attribute name="order"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="localizedProductDetails">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="attributeSet" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="attribute">
+                                                  <xs:complexType>
+                                                  <xs:sequence>
+                                                  <xs:element name="name"/>
+                                                  <xs:element name="value"/>
+                                                  </xs:sequence>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="description" minOccurs="0"/>
+                                        <xs:element name="title" minOccurs="0"/>
+                                        <xs:element minOccurs="0" name="subTitle"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="localizedFor"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element default="false" minOccurs="0" name="isPartOfVariationGroup"
+                    nillable="true" type="xs:boolean"/>
+                <xs:element name="offerDetails" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="channelID"/>
+                            <xs:element name="category"/>
+                            <xs:element name="pricingDetails" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="listPrice" type="AmountType" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                            A merchant uses this field to add/update the list price for the specified product across listings. The value specified in this field will not affect other product variations in multi-variation listings. 
+                                                        </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="strikeThroughPrice" type="AmountType"
+                                            minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                            The price specified in this field is the original price of the product before the product is discounted and offered at the price shown in listPrice field. In the View Item page, the strikeThroughPrice value will actually have a line through it to help emphasize the amount of the discount to prospective buyers. 
+                                                        </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="minimumAdvertisedPriceHandling"
+                                            type="MinimumAdvertisedPriceHandlingEnum" minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                            This enumeration value should be set if the merchant is using the Minimum Advertised Price feature, and it controls the display of the discounted MAP price (listPrice value) during the checkout flow. See the MinimumAdvertisedPriceHandlingEnum type to see a list of supported values.
+                                                        </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="minimumAdvertisedPrice" type="AmountType"
+                                            minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                            The Minimum Advertised Price (MAP) is an agreement between suppliers (or OEMs) and retailers stipulating the lowest price a product is allowed to be advertised at. Merchants can offer prices below the MAP through other discounts. The value specified in this field will not affect other products in multi-variation listings. 
+                                                        </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="soldOnEbay" type="xs:boolean"
+                                            minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                            This field is used to indicate that the merchant offered the same (or similar) product for the same sale price (listPrice value) on an eBay site in the previous 30 days. This field is only applicable for products selling on the eBay UK and eBay Germany (DE) sites. If this field is included and set to 'true', eBay displays 'Was*' in the UK and 'Ursprunglich*' in Germany, next to the discounted price of the item. In the event that the soldOffeBay and soldOneBay fields are both set, soldOneBay takes precedence. 
+                                                        </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="soldOffEbay" type="xs:boolean"
+                                            minOccurs="0">
+                                            <xs:annotation>
+                                                <xs:documentation>
+                                                            This field is used to indicate that the merchant offered the same (or similar) product for the same sale price (listPrice value) on a Web site or offline store other than eBay in the previous 30 days. This field is only applicable for products selling on the eBay UK and eBay Germany (DE) sites. If this field is included and set to 'true', eBay displays 'Was*' in the UK and 'Ursprunglich*' in Germany, next to the discounted price of the item. In the event that the soldOffeBay and soldOneBay fields are both set, soldOneBay takes precedence. 
+                                                        </xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="useCatalogProductDetails"/>
+                            <xs:element name="storeCategory1" minOccurs="0"/>
+                            <xs:element name="storeCategory2" minOccurs="0"/>
+                            <xs:element name="quantityAllocated" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:attribute name="allocationType"/>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="listingId" minOccurs="0"/>
+                            <xs:element name="listingPolicies">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="paymentPolicy"/>
+                                        <xs:element name="shippingPolicy"/>
+                                        <xs:element name="returnPolicy"/>
+                                        <xs:element name="shippingCostOverrides"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="StatusType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ACTIVE"/>
+            <xs:enumeration value="ARCHIVED"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ConditionType">
+        <xs:annotation>
+            <xs:documentation>
+                Enumerated type that lists the possible values that can be used to specify item condition.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NEW">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is new. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEW_OTHER">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is new. If 'NEW_OTHER' is used as the condition, an explanation of what this means should be provided by the merchant in the product.description container.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NEW_WITH_DEFECTS">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is new, but with defects. If 'NEW_WITH_DEFECTS' is used as the condition, an explanation of what this means should be provided by the merchant in the product.description container.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MANUFACTURER_REFURBISHED">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product was refurbished by the manufacturer.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SELLER_REFURBISHED">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product was refurbished by the seller.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="USED_EXCELLENT">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is a used item in excellent condition. The conditionInfo.conditionDescription field can be used to provide more information about the condition of the item.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="USED_VERY_GOOD">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is a used item in very good condition. The conditionInfo.conditionDescription field can be used to provide more information about the condition of the item.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="USED_GOOD">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is a used item in good condition. The conditionInfo.conditionDescription field can be used to provide more information about the condition of the item.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="USED_ACCEPTABLE">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is a used item in acceptable condition. The conditionInfo.conditionDescription field can be used to provide more information about the condition of the item.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="FOR_PARTS_OR_NOT_WORKING">
+                <xs:annotation>
+                    <xs:documentation>
+                        This enumeration value indicates that the product is not working and/or will only be beneficial for its parts. The conditionInfo.conditionDescription field can be used to provide more information about the condition of the item.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="AmountType">
+        <xs:annotation>
+            <xs:documentation>
+                This type is used to express dollar values.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:double">
+                <xs:attribute name="currencyCode" type="CurrencyCodeType" use="required">
+                    <xs:annotation>
+                        <xs:documentation>
+                            This the currency type that the amount value is expressed in.
+                        </xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:simpleType name="CurrencyCodeType">
+        <xs:annotation>
+            <xs:documentation>
+                This enumerated type lists the three-digit codes that represent currencies. These values are based on the ISO 4217 standard.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="USD">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the US dollar, which is the official currency of the United States.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CAD">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Canadian dollar, which is the official currency of Canada.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GBP">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the British Pound, which is the official currency of the United Kingdom.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="AUD">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Australian dollar, which is the official currency of Australia.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="EUR">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Euro, which is the official currency of the European Union countries.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CHF">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Swiss franc, which is the official currency of Switzerland.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="CNY">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Chinese Yuan Renminbi, which is the official currency of China.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="HKD">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Hong Kong dollar, which is the official currency of Hong Kong.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PHP">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Philippine peso, which is the official currency of the Philippines.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PLN">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Polish zloty, which is the official currency of Poland.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SEK">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Swedish krona, which is the official currency of Sweden.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="SGD">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Singapore dollar, which is the official currency of Singapore.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="TWD">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Taiwan new dollar, which is the official currency of Taiwan.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="INR">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Indian rupee, which is the official currency of India.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="MYR">
+                <xs:annotation>
+                    <xs:documentation>
+                        Enumeration value that indicates that the currency is the Malaysian ringgit, which is the official currency of Malaysia.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="MinimumAdvertisedPriceHandlingEnum">
+        <xs:annotation>
+            <xs:documentation>
+                Enumerated type that is used to specify when a discounted MAP price is shown to the buyer.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DURING_CHECKOUT">
+                <xs:annotation>
+                    <xs:documentation>
+                        If this enumeration value is used, the discounted MAP price is shown as soon as the buyer commits to buy the product, but is not available before.
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="NONE">
+                <xs:annotation>
+                    <xs:documentation>
+                        If this enumeration value is used, the discounted MAP price is not shown to the buyer during the checkout flow. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="PRE_CHECKOUT">
+                <xs:annotation>
+                    <xs:documentation>
+                        If this enumeration value is used, the discounted MAP price is shown if the buyer clicks a link (or a button) on the View Item page to display the discounted MAP price in a pop-up window. 
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
